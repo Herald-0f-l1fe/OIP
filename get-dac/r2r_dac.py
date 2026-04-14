@@ -18,7 +18,7 @@ class R2R_DAC:
         binary_str = bin(number)[2:].zfill(8)
         
         for i in range(8):
-            bit = int(binary_str[7 - i])
+            bit = int(binary_str[i])
             GPIO.output(self.gpio_bits[i], bit)
             
         if self.verbose:
@@ -35,7 +35,7 @@ class R2R_DAC:
         self.set_number(number)
 
 if __name__ == "__main__":
-    dac = R2R_DAC([16, 20, 21, 25, 26, 17, 27, 22], 3.183, True)
+    dac = R2R_DAC([16, 20, 21, 25, 26, 17, 27, 22], 3.16, True)
     
     try:
         while True:
