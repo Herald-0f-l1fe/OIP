@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 
-dac_bits = [2, 3, 4, 17, 27, 22, 10, 9]
+dac_bits = [16, 20, 21, 25, 26, 17, 27, 22]
 
-dynamic_range = 3.3
+dynamic_range = 3.16
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(dac_bits, GPIO.OUT)
@@ -19,7 +19,7 @@ def number_to_dac(number):
     binary_str = bin(number)[2:].zfill(8)
     
     for i in range(8):
-        bit = int(binary_str[7 - i])
+        bit = int(binary_str[i])
         GPIO.output(dac_bits[i], bit)
 
 try:
