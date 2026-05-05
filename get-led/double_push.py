@@ -5,8 +5,8 @@ GPIO.setmode(GPIO.BCM)
 
 leds = [16, 12, 25, 17, 27, 23, 22, 24]
 
-up_button = 5
-down_button = 6
+up_button = 9
+down_button = 10
 
 GPIO.setup(leds, GPIO.OUT)
 GPIO.setup(up_button, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -25,19 +25,19 @@ try:
 
         if up_pressed and down_pressed:
             num = 255
-            print("Double push! Max value:", num, dec2bin(num))
-            time.sleep(sleep_time)
+            # print("Double push! Max value:", num, dec2bin(num))
+            time.sleep(sleep_time + 1)
         
         elif up_pressed:
             num += 1
             if num > 255: num = 0
-            print(num, dec2bin(num))
+            # print(num, dec2bin(num))
             time.sleep(sleep_time)
 
         elif down_pressed:
             num -= 1
             if num < 0: num = 0
-            print(num, dec2bin(num))
+            # print(num, dec2bin(num))
             time.sleep(sleep_time)
 
         GPIO.output(leds, dec2bin(num))

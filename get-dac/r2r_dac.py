@@ -32,7 +32,7 @@ class R2R_DAC:
             return
 
         number = int(voltage / self.dynamic_range * 255)
-        self.set_number(number)
+        self.set_number(number) 
 
 if __name__ == "__main__":
     dac = R2R_DAC([16, 20, 21, 25, 26, 17, 27, 22], 3.16, True)
