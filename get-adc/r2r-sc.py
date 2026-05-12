@@ -2,7 +2,6 @@ import time
 import adc_plot as plt
 from r2r_adc import R2R_ADC
 
-
 if __name__ == "__main__":
     adc = R2R_ADC(3.3)
 
@@ -16,7 +15,7 @@ if __name__ == "__main__":
         while(time.time() - start_time < duration):
             current_time = time.time() - start_time
 
-            voltage = adc.get_sar_voltage()
+            voltage = adc.get_sc_voltage()
             voltage_values.append(voltage)
 
             time_values.append(current_time)
@@ -25,3 +24,4 @@ if __name__ == "__main__":
         plt.plot_sampling_period_hist(time_values)
     finally:
         adc.deinit()
+        

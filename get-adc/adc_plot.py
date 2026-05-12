@@ -1,31 +1,36 @@
-import time
-import r2r_adc          
-import adc_plot
+import matplotlib.pyplot as plt
 
-def main():
-    DYNAMIC_RANGE = 3.295
-    DURATION = 3.0         
+def plot_voltage_vs_time(time, voltage, max_voltage):
+    plt.figure(figsize= (10,6))
+    plt.plot(time, voltage)
 
-    adc = r2r_adc.R2R_ADC(dynamic_range=DYNAMIC_RANGE, compare_time=0.001, verbose=False)
+    plt.title("Зависимость напряжения от времени", fontsize = 16, fontweight = "bold")
+    plt.xlabel("Время, с", fontsize = 12)
+    plt.ylabel("Напряжение, В", fontsize = 12)
 
-    voltage_values = []
-    time_values = []
+    plt.xlim(0, max(time) + 1)
+    plt.ylim(0, max(voltage))
 
-    try:
-        start_time = time.time()
-        print(f"Измерение напряжения в течение {DURATION} секунд...")
-        while time.time() - start_time < DURATION:
-            v = adc.get_sc_voltage()           # измеряем напряжение
-            t = time.time() - start_time       # относительное время
-            voltage_values.append(v)
-            time_values.append(t)
-        print("Измерение завершено. Строим график...")
-        adc_plot.plot_voltage_vs_time(time_values, voltage_values, DYNAMIC_RANGE)
-    except KeyboardInterrupt:
-        print("\nПрерывание пользователем.")
-    finally:
-        adc.close()
-        print("Ресурсы GPIO освобождены.")
+    plt.grid(True, alpha = 0.3, linestyle = "--")
 
-if __name__ == "__main__":
-    main()
+    plt.tight_layout()
+    plt.show()
+
+def plot_sampling_period_hist(time):
+    sampling_periods = []
+
+    sampling_periods.append(time[0])
+    for i in range(1, len(time)):
+        sampling_periods.append(time[i] - time[i-1])
+
+    # print(sampling_periods)
+    
+    plt.figure(figsize= (10,6))
+    plt.hist(sampling_periods)
+
+    plt.title("Зависимость напряжения от времени", fontsize = 16, fontweight = "bold")
+    plt.xlabel("Период измерения, с", fontsize = 12)
+    plt.ylabel("Количество измерений", fontsize = 12)
+
+    plt.xlim(0, max(sampling_periods))
+    plt.show()

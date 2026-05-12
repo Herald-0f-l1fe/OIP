@@ -1,5 +1,5 @@
 import signal_generator as sg
-from mcp4725_driver import MCP4725
+import pwm_dac
 import time as t
 
 amplitude = 1.2
@@ -7,7 +7,7 @@ signal_frequency = 20
 sampling_frequency = 1000
 
 def main():
-    dac = MCP4725(verbose=False)
+    dac = pwm_dac.PWM_DAC()
 
     while True:
         try:
@@ -22,5 +22,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
     
